@@ -3,36 +3,59 @@ package com.example.bai1_ktgk_59130915;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
 
+    RadioGroup radioGroup;
+    RadioButton radioButton,r1,r2,r3;
+    TextView textView;
+    Button button;
+    EditText editText,editText2,editText3;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        r1 = findViewById(R.id.rad13);
+        r2 = findViewById(R.id.rad15);
+        radioGroup = findViewById(R.id.radG);
+        textView = findViewById(R.id.ViewTip);
+        editText = findViewById(R.id.edtMoney);
+        editText2 = findViewById(R.id.edtMoney2);
+        editText3 = findViewById(R.id.edtMoney3);
+        button = findViewById(R.id.btntip);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String tip = editText.getText().toString();
+                String tip2 = editText2.getText().toString();
+                String tip3 = editText3.getText().toString();
+
+                float money = Float.parseFloat(tip);
+                float a=Float.parseFloat(tip);
+                float b=Float.parseFloat(tip2);
+                float c=Float.parseFloat(tip3);
+                int radioId = radioGroup.getCheckedRadioButtonId();
+                radioButton = findViewById(radioId);
+                String s = (String) radioButton.getText();
+                String s1 = (String) r1.getText();
+                String s2 = (String) r2.getText();
+                if (s.equals(s1)) money = 2*(a + b) ;
+                if (s.equals(s2)) money = a * c;
+                textView.setText("kết quả:  "+ money);
+            }
+        });
     }
-    //Hàm xử lý
-    void Xuly_DienTich(View v){
-        EditText dk_soA = (EditText) findViewById(R.id.edtA);
-        int soA = Integer.parseInt(dk_soA.getText().toString());
-        EditText dk_soB = (EditText) findViewById(R.id.edtB);
-        int soB = Integer.parseInt(dk_soB.getText().toString());
-        EditText dk_soH = (EditText) findViewById(R.id.edtH);
-        int soH = Integer.parseInt(dk_soH.getText().toString());
-        int KetQua = soA * soH;
-        TextView dk_KQ = (TextView) findViewById(R.id.tvResult);
-        dk_KQ.setText(String.valueOf(KetQua));
-    }
-    void Xuly_ChuVi(View v) {
-        EditText dk_soA = (EditText) findViewById(R.id.edtA);
-        int soA = Integer.parseInt(dk_soA.getText().toString());
-        EditText dk_soB = (EditText) findViewById(R.id.edtB);
-        int soB = Integer.parseInt(dk_soB.getText().toString());
-        int KetQua = 2 * (soA + soB);
-        TextView dk_KQ = (TextView) findViewById(R.id.tvResult);
-        dk_KQ.setText(String.valueOf(KetQua));
+    public void checkbtn(View view) {
+        int radID = radioGroup.getCheckedRadioButtonId();
+        radioButton = findViewById(radID);
+        Toast.makeText(this, "You select : " + radioButton.getText(),
+                Toast.LENGTH_SHORT).show();
     }
 }
